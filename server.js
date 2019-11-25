@@ -14,7 +14,8 @@ app.use(cors());
 app.use(express.json());
 
 const password = process.env.ATLAS_PASSWORD;
-const ATLAS_URI = "mongodb+srv://cnohall:"+ password +"@advertdata-bukei.mongodb.net/test?retryWrites=true&w=majority";
+console.log(password);
+const ATLAS_URI = "mongodb+srv://cnohall:" + password + "@advertdata-bukei.mongodb.net/test?retryWrites=true&w=majority";
 mongoose.connect(ATLAS_URI, {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true}
 );
 
