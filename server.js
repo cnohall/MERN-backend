@@ -13,10 +13,11 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-// const password = process.env.ATLAS_PASSWORD;
-// const ATLAS_URI = "mongodb://cnohall:" + password + "@ds249717.mlab.com:49717/heroku_65w8w8q7";
+const password = process.env.ATLAS_PASSWORD;
+const ATLAS_URI = "mongodb+srv://cnohall:" + password+ "@advertdata-bukei.mongodb.net/test?retryWrites=true&w=majority"
+// process.env.MONGODB_URI
 
-mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true}
+mongoose.connect(ATLAS_URI, {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true}
 );
 
 const connection = mongoose.connection;
