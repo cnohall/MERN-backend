@@ -3,7 +3,7 @@ const cors = require ('cors')
 const mongoose = require('mongoose')
 require('dotenv').config();
 const advertRouter = require('./routes/adverts.js'); 
-
+const Grid = require('gridfs-stream');
 
 
 
@@ -23,12 +23,56 @@ mongoose.connect(ATLAS_URI, {useNewUrlParser: true, useCreateIndex: true, useUni
 const connection = mongoose.connection;
 
 connection.once('open', () => {
+    gfs = Grid(connection.db, mongoose.mongo)
+    gfs.collection('uploads')
+    console.log('Picture Connection Successful')
     console.log("MongoDB database connection established successfully");
 })
 
 app.get('/', function(req, res){
     res.redirect('/adverts');
  });
+
+app.get('/uploads', (req, res) => {
+    gfs.files.find().toArray((err, files) => {
+        if(!files || files.length === 0) {
+            return res.status(404).json({
+                err: 'No files exist'
+            })
+        }
+  
+        return res.json(files);
+    })
+});
+
+app.get('/uploads/:filename', (req, res) => {
+    gfs.files.findOne({filename: req.params.filename}, (err, file)=> {
+        if(!file || file.length === 0) {
+            return res.status(404).json({
+                err: 'No file exists'
+            })
+        }
+        return res.json(file)
+    });
+});
+
+app.get('/image/:filename', (req, res) => {
+    gfs.files.findOne({filename: req.params.filename}, (err, file)=> {
+        if(!file || file.length === 0) {
+            return res.status(404).json({
+                err: 'No file exists'
+            })
+        }
+        if (file.contentType === 'image/jpeg' || file.contentType === 'image/png'){
+            const readstream = gfs.createReadStream(file.filename);
+            readstream.pipe(res)
+        } else {
+            return res.status(404).json({
+                err: 'Not an image'
+            })
+        }
+    });
+});
 
 app.use('/adverts', advertRouter);
 
