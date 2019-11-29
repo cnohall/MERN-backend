@@ -12,6 +12,7 @@ const advertSchema = new Schema({
     place: { type: String, required: true},
     title: { type: String, required: true},
     description: { type: String, required: true},
+    imageURL: { type: String, required: true},
     imageID: { type: String, required: true},
     zipCode: { type: String, required: true},
     phone: { type: String, required: true},
