@@ -59,7 +59,7 @@ router.route('/').get((req, res) => {
 router.post('/add', upload.single('advertImage'), (req, res) => {
     
     console.log(req.file);
-
+    const imageURL = "https://begtool-backend.herokuapp.com/image/" + req.body.filename;
     const name = req.body.name;
     const email = req.body.email;
     const emailCheck = req.body.emailCheck;
@@ -84,6 +84,7 @@ router.post('/add', upload.single('advertImage'), (req, res) => {
         title,
         description,
         imageID,
+        imageURL,
         price,
     });
 
