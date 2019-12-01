@@ -4,6 +4,7 @@ const multer = require('multer');
 const crypto = require('crypto');
 const GridFsStorage = require('multer-gridfs-storage');
 const path = require('path');
+const ObjectId = require('mongodb').ObjectID;
 
 
 
@@ -53,6 +54,12 @@ router.route('/').get((req, res) => {
         .catch(err => res.status(400).json("Error: " + err));
 });
 
+router.route('/:id').get((req, res) => {
+  const id = req.params.id;
+  Advert.find( { "_id": ObjectId(id) } )
+      .then(adverts => res.json(adverts))
+      .catch(err => res.status(400).json("Error: " + err));
+});
 
 
 
