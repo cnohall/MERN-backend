@@ -3,6 +3,7 @@ const cors = require ('cors')
 const mongoose = require('mongoose')
 require('dotenv').config();
 const advertRouter = require('./routes/adverts.js'); 
+const mailRouter = require('./routes/mail.js'); 
 const Grid = require('gridfs-stream');
 
 
@@ -75,6 +76,7 @@ app.get('/image/:filename', (req, res) => {
 });
 
 app.use('/adverts', advertRouter);
+app.use('/mail', mailRouter);
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`)
