@@ -62,7 +62,7 @@ router.route('/find/:id').get((req, res) => {
 });
 
 router.route('/title').get((req, res) => {
-  Advert.find({}, {title:1, id:0})
+  Advert.find({}, {title:1, _id:0})
       .then(titles => res.json(titles))
       .catch(err => res.status(400).json("Error: " + err));
 });
