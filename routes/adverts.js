@@ -54,14 +54,18 @@ router.route('/').get((req, res) => {
         .catch(err => res.status(400).json("Error: " + err));
 });
 
-router.route('/:id').get((req, res) => {
+router.route('/find/:id').get((req, res) => {
   const id = req.params.id;
   Advert.find( { "_id": ObjectId(id) } )
       .then(adverts => res.json(adverts))
       .catch(err => res.status(400).json("Error: " + err));
 });
 
-
+router.route('/title').get((req, res) => {
+  Advert.find({}, {title:1, id:0})
+      .then(titles => res.json(titles))
+      .catch(err => res.status(400).json("Error: " + err));
+});
 
 router.post('/add', upload.single('advertImage'), (req, res) => {
     
