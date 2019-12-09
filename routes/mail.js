@@ -28,8 +28,8 @@ router.route('/:email/:name/').post((req, res) => {
     ]
   })
   request
-    .then((result) => {
-      console.log(result.body)
+    .then((result) => 
+        result.json('Mail sent! : ' + result))
     })
     .catch((err) => {
       console.log(err.statusCode)
