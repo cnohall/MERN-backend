@@ -28,13 +28,12 @@ router.route('/:email/:name/').post((req, res) => {
     ]
   })
   request
-    .then((result) => {
-      console.log("Mail sent. This is the response: " + result)
-    })
-    .catch((err) => {
+  .then(() => 
+      console.log(res.json("Email sent to: " + email))
+  )
+  .catch((err) => {
       console.log(err.statusCode)
     })
-
 });
 
 module.exports = router;
