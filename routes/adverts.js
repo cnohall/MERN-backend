@@ -67,6 +67,13 @@ router.route('/title').get((req, res) => {
       .catch(err => res.status(400).json("Error: " + err));
 });
 
+router.route('/title/:searchword').get((req, res) => {
+  const searchword = req.params.searchword;
+  Advert.find({title: { '$regex' : searchword, '$options' : 'i' } })
+      .then(titles => res.json(titles))
+      .catch(err => res.status(400).json("Error: " + err));
+});
+
 router.post('/add', upload.single('advertImage'), (req, res) => {
     
     console.log(req.file);
