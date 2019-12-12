@@ -82,10 +82,11 @@ router.post('/add', upload.single('advertImage'), (req, res) => {
     const email = req.body.email;
     const emailCheck = req.body.emailCheck;
     const phone = req.body.phone;
-    const place = req.body.place;
+    const province = req.body.province;
     const area = req.body.area;
     const zipCode = req.body.zipCode;
     const title = req.body.title;
+    const category = req.body.category;
     const description = req.body.description;
     const imageID = req.file.filename;
     const price = req.body.price;
@@ -96,8 +97,9 @@ router.post('/add', upload.single('advertImage'), (req, res) => {
         email,
         emailCheck,
         phone,
-        place, 
+        province, 
         area,
+        category,
         zipCode,
         title,
         description,
