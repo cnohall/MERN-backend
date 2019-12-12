@@ -54,12 +54,29 @@ router.route('/').get((req, res) => {
         .catch(err => res.status(400).json("Error: " + err));
 });
 
-router.route('/find/:id').get((req, res) => {
+router.route('/find1/:id').get((req, res) => {
   const id = req.params.id;
   Advert.find( { "_id": ObjectId(id) } )
       .then(adverts => res.json(adverts))
       .catch(err => res.status(400).json("Error: " + err));
 });
+
+router.route('/find2/:province/:category').get((req, res) => {
+  const province = req.params.province;
+  const category = req.params.category;
+  if (province === "Hela Sverige") {
+    Advert.find( { "category" : category } )
+    .then(adverts => res.json(adverts))
+    .catch(err => res.status(400).json("Error: " + err));
+  }
+  else {
+    Advert.find( { "province": province, "category" : category } )
+    .then(adverts => res.json(adverts))
+    .catch(err => res.status(400).json("Error: " + err));
+  }
+
+});
+
 
 router.route('/title').get((req, res) => {
   Advert.find({}, {title:1, _id:0})
