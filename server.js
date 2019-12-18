@@ -2,7 +2,7 @@ const express = require ('express');
 const cors = require ('cors')
 const mongoose = require('mongoose')
 require('dotenv').config();
-const advertRouter = require('./routes/adverts.js'); 
+const annonsRouter = require('./routes/annonser.js'); 
 const mailRouter = require('./routes/mail.js'); 
 const Grid = require('gridfs-stream');
 
@@ -31,7 +31,7 @@ connection.once('open', () => {
 })
 
 app.get('/', function(req, res){
-    res.redirect('/adverts');
+    res.redirect('/annons');
  });
 
 app.get('/uploads', (req, res) => {
@@ -75,7 +75,7 @@ app.get('/image/:filename', (req, res) => {
     });
 });
 
-app.use('/adverts', advertRouter);
+app.use('/annons', annonsRouter);
 app.use('/mail', mailRouter);
 
 app.listen(port, () => {

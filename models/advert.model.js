@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 
 
-const advertSchema = new Schema({
+const annonsSchema = new Schema({
     name: { type: String, required: true},
     email: { type: String, required: true},
     emailCheck: { type: String, required: true},
@@ -22,6 +22,6 @@ const advertSchema = new Schema({
     timestamps: true,
 });
 
-const Advert = mongoose.model('Advert', advertSchema);
+const Annons = mongoose.model('Annons', annonsSchema);
 
-module.exports = Advert;
+module.exports = Annons;
