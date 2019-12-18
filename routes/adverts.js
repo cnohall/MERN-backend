@@ -1,5 +1,5 @@
 const router = require('express').Router();
-let Advert = require('../models/advert.model');
+let Annons = require('../models/annons.model');
 const multer = require('multer');
 const crypto = require('crypto');
 const GridFsStorage = require('multer-gridfs-storage');
@@ -49,15 +49,15 @@ const upload = multer({
 });
 
 router.route('/').get((req, res) => {
-    Advert.find()
-        .then(adverts => res.json(adverts))
+    Annons.find()
+        .then(annonser => res.json(annonser))
         .catch(err => res.status(400).json("Error: " + err));
 });
 
 router.route('/find1/:id').get((req, res) => {
   const id = req.params.id;
-  Advert.find( { "_id": ObjectId(id) } )
-      .then(adverts => res.json(adverts))
+  Annons.find( { "_id": ObjectId(id) } )
+      .then(annonser => res.json(annonser))
       .catch(err => res.status(400).json("Error: " + err));
 });
 
@@ -65,13 +65,13 @@ router.route('/find2/:province/:category').get((req, res) => {
   const province = req.params.province;
   const category = req.params.category;
   if (province === "Hela Sverige") {
-    Advert.find( { "category" : category } )
-    .then(adverts => res.json(adverts))
+    Annons.find( { "category" : category } )
+    .then(annonser => res.json(annonser))
     .catch(err => res.status(400).json("Error: " + err));
   }
   else {
-    Advert.find( { "province": province, "category" : category } )
-    .then(adverts => res.json(adverts))
+    Annons.find( { "province": province, "category" : category } )
+    .then(annonser => res.json(annonser))
     .catch(err => res.status(400).json("Error: " + err));
   }
 
@@ -79,19 +79,19 @@ router.route('/find2/:province/:category').get((req, res) => {
 
 
 router.route('/title').get((req, res) => {
-  Advert.find({}, {title:1, _id:0})
+  Annons.find({}, {title:1, _id:0})
       .then(titles => res.json(titles))
       .catch(err => res.status(400).json("Error: " + err));
 });
 
 router.route('/title/:searchword').get((req, res) => {
   const searchword = req.params.searchword;
-  Advert.find({title: { '$regex' : searchword, '$options' : 'i' } })
+  Annons.find({title: { '$regex' : searchword, '$options' : 'i' } })
       .then(titles => res.json(titles))
       .catch(err => res.status(400).json("Error: " + err));
 });
 
-router.post('/add', upload.single('advertImage'), (req, res) => {
+router.post('/add', upload.single('annonsImage'), (req, res) => {
     
     console.log(req.file);
     const imageURL = "https://begtool-backend.herokuapp.com/image/" + req.file.filename;
@@ -109,7 +109,7 @@ router.post('/add', upload.single('advertImage'), (req, res) => {
     const price = req.body.price;
 
 
-    const newAdvert = new Advert({
+    const newAnnons = new Annons({
         name,
         email,
         emailCheck,
@@ -127,8 +127,8 @@ router.post('/add', upload.single('advertImage'), (req, res) => {
 
 
     console.log("added");
-    newAdvert.save()
-        .then(() => res.json('Advert added!'))
+    newAnnons.save()
+        .then(() => res.json('Annons added!'))
         .catch(err => res.status(400).json("Error: " + err));
 });
 
