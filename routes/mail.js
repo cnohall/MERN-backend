@@ -11,7 +11,7 @@ router.route('/:email/:name/').post((req, res) => {
     "Messages":[
       {
         "From": {
-          "Email": "christopher.nohall@gmail.com",
+          "Email": "support@begtool.se",
           "Name": "Begtools team"
         },
         "To": [
