@@ -132,4 +132,12 @@ router.post('/add', upload.single('annonsImage'), (req, res) => {
         .catch(err => res.status(400).json("Error: " + err));
 });
 
+router.get('/delete/:id', (req, res) => {
+  
+  const id = req.params.id;
+  Annons.deleteOne({"_id": ObjectId(id)})
+      .then(() => res.json('Annonsen är nu nertagen'))
+      .catch(err => res.status(400).json("Error: " + err));
+});
+
 module.exports = router;
