@@ -93,7 +93,8 @@ router.route('/title/:searchword').get((req, res) => {
 
 router.post('/add', upload.single('annonsImage'), (req, res) => {
     
-    console.log(req.file);
+    // console.log(req.file);
+    const annonsID = req.file.id;
     const imageURL = "https://begtool-backend.herokuapp.com/image/" + req.file.filename;
     const name = req.body.name;
     const email = req.body.email;
@@ -126,9 +127,17 @@ router.post('/add', upload.single('annonsImage'), (req, res) => {
     });
 
 
-    console.log("added");
+
     newAnnons.save()
-        .then(() => res.json('Annons added!'))
+    
+        .then(() => {
+          const response = {
+            success: true,
+            annonsID: annonsID
+          }
+          res.json(response)
+        }
+)
         .catch(err => res.status(400).json("Error: " + err));
 });
 
