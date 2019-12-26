@@ -200,7 +200,7 @@ router.route('/:email/:name/:id').post((req, res) => {
         <!--[if mso]></td></tr></table><![endif]-->
         </div>
         <!--[if !mso]><!-->
-        <div class="desktop_hide" style="mso-hide: all; display: none; max-height: 0px; overflow: hidden;">
+
         <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top: 10px; padding-bottom: 10px; font-family: Arial, sans-serif"><![endif]-->
         <div style="color:#66BECD;font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;line-height:1.2;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
         <div style="font-size: 12px; line-height: 1.2; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #66BECD; mso-line-height-alt: 14px;">
@@ -210,10 +210,10 @@ router.route('/:email/:name/:id').post((req, res) => {
         </div>
         </div>
         <!--[if mso]></td></tr></table><![endif]-->
-        </div>
+
         <!--<![endif]-->
         <!--[if !mso]><!-->
-        <div class="desktop_hide" style="mso-hide: all; display: none; max-height: 0px; overflow: hidden;">
+
         <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top: 10px; padding-bottom: 10px; font-family: Arial, sans-serif"><![endif]-->
         <div style="color:#66BECD;font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;line-height:1.2;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
         <div style="font-size: 12px; line-height: 1.2; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #66BECD; mso-line-height-alt: 14px;">
@@ -223,7 +223,7 @@ router.route('/:email/:name/:id').post((req, res) => {
         </div>
         </div>
         <!--[if mso]></td></tr></table><![endif]-->
-        </div>
+
         <!--<![endif]-->
         <!--[if (!mso)&(!IE)]><!-->
         </div>
@@ -247,7 +247,7 @@ router.route('/:email/:name/:id').post((req, res) => {
         <!--<![endif]-->
         <div align="center" class="img-container center autowidth autowidth" style="padding-right: 0px;padding-left: 0px;">
         <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr style="line-height:0px"><td style="padding-right: 0px;padding-left: 0px;" align="center"><![endif]-->
-        <div style="font-size:1px;line-height:10px"> </div><img align="center" alt="Image" border="0" class="center autowidth autowidth" src="../mail-template/images/divider.png" style="text-decoration: none; -ms-interpolation-mode: bicubic; border: 0; height: auto; width: 100%; max-width: 634px; display: block;" title="Image" width="634"/>
+       
         <!--[if mso]></td></tr></table><![endif]-->
         </div>
         <!--[if (!mso)&(!IE)]><!-->
@@ -299,7 +299,7 @@ router.route('/:email/:name/:id').post((req, res) => {
         <div style="border-top:0px solid transparent; border-left:8px solid #F1F3F3; border-bottom:0px solid transparent; border-right:8px solid #F1F3F3; padding-top:30px; padding-bottom:25px; padding-right: 0px; padding-left: 0px;">
         <!--<![endif]-->
         <div align="center" class="img-container center fullwidthOnMobile autowidth" style="padding-right: 0px;padding-left: 0px;">
-        <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr style="line-height:0px"><td style="padding-right: 0px;padding-left: 0px;" align="center"><![endif]--><img align="center" alt="Image" border="0" class="center fullwidthOnMobile autowidth" src="../mail-template/images/begtool_logo.JPG" style="text-decoration: none; -ms-interpolation-mode: bicubic; border: 0; height: auto; width: 100%; max-width: 634px; display: block;" title="Image" width="634"/>
+       
         <!--[if mso]></td></tr></table><![endif]-->
         </div>
         <!--[if (!mso)&(!IE)]><!-->
