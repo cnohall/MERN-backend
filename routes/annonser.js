@@ -7,12 +7,11 @@ const path = require('path');
 const ObjectId = require('mongodb').ObjectID;
 
 
-
-
 const password = process.env.ATLAS_PASSWORD;
 const ATLAS_URI = "mongodb+srv://cnohall:" + password+ "@advertdata-bukei.mongodb.net/test?retryWrites=true&w=majority"
 
 const storage = new GridFsStorage({
+
     url: ATLAS_URI,
     file: (req, file) => {
       return new Promise((resolve, reject) => {
@@ -42,8 +41,9 @@ const fileFilter = (req, file, cb) => {
 
 const upload = multer({
     storage: storage, 
-    limits: {
-    fileSize: 1024 * 1024 * 5
+    size: {
+      width: 400,
+      height: 400
     },
     fileFilter: fileFilter
 });
@@ -95,6 +95,7 @@ router.post('/add', upload.single('annonsImage'), (req, res) => {
     
     // console.log(req.file);
     const annonsID = req.file.id;
+
     const imageURL = "https://begtool-backend.herokuapp.com/image/" + req.file.filename;
     const name = req.body.name;
     const email = req.body.email;
@@ -125,11 +126,7 @@ router.post('/add', upload.single('annonsImage'), (req, res) => {
         imageURL,
         price,
     });
-
-
-
     newAnnons.save()
-    
         .then(() => {
           const response = {
             success: true,
