@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-
+const twoWeeksInMinutes = 60 * 24 * 14;
 
 const annonsSchema = new Schema({
     name: { type: String, required: true},
@@ -18,8 +18,7 @@ const annonsSchema = new Schema({
     zipCode: { type: String, required: true},
     phone: { type: String, required: true},
     price: { type: String, required: true},
-}, {
-    timestamps: true,
+    createdAt: { type: Date, expires: twoWeeksInMinutes+ 'm', default: Date.now }
 });
 
 const Annons = mongoose.model('Annons', annonsSchema);

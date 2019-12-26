@@ -5,6 +5,8 @@ require('dotenv').config();
 const annonsRouter = require('./routes/annonser.js'); 
 const mailRouter = require('./routes/mail.js'); 
 const Grid = require('gridfs-stream');
+const Annons = require('./models/annons.model');
+const ObjectId = require('mongodb').ObjectID;
 
 
 
@@ -18,16 +20,19 @@ const password = process.env.ATLAS_PASSWORD;
 const ATLAS_URI = "mongodb+srv://cnohall:" + password+ "@advertdata-bukei.mongodb.net/test?retryWrites=true&w=majority"
 // process.env.MONGODB_URI
 
+
 mongoose.connect(ATLAS_URI, {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true}
 );
 
-const connection = mongoose.connection;
+const db = mongoose.connection;
 
-connection.once('open', () => {
-    gfs = Grid(connection.db, mongoose.mongo)
+
+db.once('open', () => {
+
+    gfs = Grid(db.db, mongoose.mongo)
     gfs.collection('uploads')
+
     console.log('Picture Connection Successful')
-    console.log("MongoDB database connection established successfully");
 })
 
 app.get('/', function(req, res){
@@ -45,6 +50,27 @@ app.get('/uploads', (req, res) => {
         return res.json(files);
     })
 });
+
+// app.get('/delete/:id/', (req, res) => {
+//     const id = req.params.id;
+//     Annons.find( { "_id": ObjectId(id) } )
+//     .then(annons => {
+//         const imageID = annons.imageID;
+//         gfs.files.findOne({filename: imageID})
+//         .then((file) => {
+//             console.log(file)
+//             gfs.files.deleteMany({"_id": file._id})
+//             .then(() => {
+//                 console.log("deleted picture step 1?")
+//             })
+//             Annons.deleteOne({"_id": ObjectId(id)})
+//             .then(() => {
+//                 res.json("deleted annons and picture?")
+//             })
+//         })
+//     })
+//     .catch(err => res.status(400).json("Error: " + err));
+// });
 
 app.get('/uploads/:filename', (req, res) => {
     gfs.files.findOne({filename: req.params.filename}, (err, file)=> {
@@ -74,6 +100,15 @@ app.get('/image/:filename', (req, res) => {
         }
     });
 });
+
+
+// app.get('/deleteOlder', (req, res) =>{
+//     Annons.deleteMany( { orderExpDate : {"$lt" : new Date(Date.now() - 1*24*60*60 * 1000) } }).then(x => {
+//         res.json("deleted all posts older than 1 day")
+//         console.log(x)
+//       })
+//       .catch(err => res.status(400).json("Error: " + err));
+// })
 
 app.use('/annons', annonsRouter);
 app.use('/mail', mailRouter);
