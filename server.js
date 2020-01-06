@@ -58,11 +58,11 @@ app.get('/uploads', (req, res) => {
     })
 });
 
-app.get("/files/del/:id", (req, res) => {
-    gfs.remove({_id: req.params.id, root: 'uploads'}, (err, data) => {
+app.get("/files/del/:fileID/:annonsID", (req, res) => {
+    gfs.remove({_id: req.params.fileID, root: 'uploads'}, (err, data) => {
       if (err) return res.status(404).json({ err: err.message });
     });
-    Annons.deleteOne( {_id: req.params.id}).then(x => {
+    Annons.deleteOne( {_id: req.params.annonsID}).then(x => {
         return res.send("Din annons är nu nedtagen")
       })
       .catch(err => res.status(400).json("Error: " + err));
