@@ -1,12 +1,10 @@
 const router = require('express').Router();
-let Annons = require('../models/annons.model');
+const Annons = require('../models/annons.model');
 const multer = require('multer');
 const crypto = require('crypto');
 const GridFsStorage = require('multer-gridfs-storage');
 const path = require('path');
 const ObjectId = require('mongodb').ObjectID;
-
-
 const password = process.env.ATLAS_PASSWORD;
 const ATLAS_URI = "mongodb+srv://cnohall:" + password+ "@advertdata-bukei.mongodb.net/test?retryWrites=true&w=majority"
 
@@ -15,6 +13,7 @@ const storage = new GridFsStorage({
     url: ATLAS_URI,
     file: (req, file) => {
       return new Promise((resolve, reject) => {
+        const DaysToExpireIn = 14;
         crypto.randomBytes(16, (err, buf) => {
           if (err) {
             return reject(err)
@@ -23,6 +22,11 @@ const storage = new GridFsStorage({
           const fileInfo = {
             filename: filename,
             bucketName: 'uploads',
+            expireAt: {
+              type: Date,
+              default: new Date(Date.now() + DaysToExpireIn*24*60*60*1000),
+              index: { expires: '5m' },
+              },
           }
           resolve(fileInfo)
         })
@@ -88,8 +92,7 @@ router.route('/title/:searchword').get((req, res) => {
 });
 
 router.post('/add', upload.single('annonsImage'), (req, res) => {
-    
-    // console.log(req.file);
+
     const annonsID = req.file.id;
 
     const imageURL = "https://begtool-backend.herokuapp.com/image/" + req.file.filename;
@@ -129,6 +132,7 @@ router.post('/add', upload.single('annonsImage'), (req, res) => {
             annonsID: annonsID
           }
           res.json(response)
+          
         }
 )
         .catch(err => res.status(400).json("Error: " + err));

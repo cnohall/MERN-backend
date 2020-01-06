@@ -20,16 +20,23 @@ const password = process.env.ATLAS_PASSWORD;
 const ATLAS_URI = "mongodb+srv://cnohall:" + password+ "@advertdata-bukei.mongodb.net/test?retryWrites=true&w=majority"
 // process.env.MONGODB_URI
 
+const conn = mongoose.createConnection(ATLAS_URI, {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true});
 
-mongoose.connect(ATLAS_URI, {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true}
-);
+
+
+mongoose.connect(ATLAS_URI, {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true});
 
 const db = mongoose.connection;
 
 
-db.once('open', () => {
+conn.once('open', () => {
 
-    gfs = Grid(db.db, mongoose.mongo)
+
+    // gfs = new mongoose.mongo.GridFSBucket(conn.db, {
+    //     bucketName: "uploads"
+    //   });
+      
+    gfs = Grid(conn.db, mongoose.mongo)
     gfs.collection('uploads')
 
     console.log('Picture Connection Successful')
@@ -51,26 +58,16 @@ app.get('/uploads', (req, res) => {
     })
 });
 
-// app.get('/delete/:id/', (req, res) => {
-//     const id = req.params.id;
-//     Annons.find( { "_id": ObjectId(id) } )
-//     .then(annons => {
-//         const imageID = annons.imageID;
-//         gfs.files.findOne({filename: imageID})
-//         .then((file) => {
-//             console.log(file)
-//             gfs.files.deleteMany({"_id": file._id})
-//             .then(() => {
-//                 console.log("deleted picture step 1?")
-//             })
-//             Annons.deleteOne({"_id": ObjectId(id)})
-//             .then(() => {
-//                 res.json("deleted annons and picture?")
-//             })
-//         })
-//     })
-//     .catch(err => res.status(400).json("Error: " + err));
-// });
+app.get("/files/del/:id", (req, res) => {
+    gfs.remove({_id: req.params.id, root: 'uploads'}, (err, data) => {
+      if (err) return res.status(404).json({ err: err.message });
+    });
+    Annons.deleteOne( {_id: req.params.id}).then(x => {
+        return res.send("Din annons är nu nedtagen")
+      })
+      .catch(err => res.status(400).json("Error: " + err));
+});
+
 
 app.get('/uploads/:filename', (req, res) => {
     gfs.files.findOne({filename: req.params.filename}, (err, file)=> {
