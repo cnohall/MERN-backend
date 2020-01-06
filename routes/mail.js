@@ -2,11 +2,10 @@ const mailjet = require ('node-mailjet')
 .connect(process.env.MJ_APIKEY_PUBLIC, process.env.MJ_APIKEY_PRIVATE)
 const router = require('express').Router();
 
-router.route('/:email/:name/:fileID/:annonsID').post((req, res) => {
+router.route('/:email/:name/:id').post((req, res) => {
   const email = req.params.email;
   const name = req.params.name;
-  const fileID = req.params.fileID;
-  const annonsID = req.params.annonsID;
+  const id = req.params.id;
   const request = mailjet
   .post("send", {'version': 'v3.1'})
   .request({
@@ -219,7 +218,7 @@ router.route('/:email/:name/:fileID/:annonsID').post((req, res) => {
         <div style="color:#66BECD;font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;line-height:1.2;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
         <div style="font-size: 12px; line-height: 1.2; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #66BECD; mso-line-height-alt: 14px;">
         <p style="font-size: 24px; line-height: 1.2; text-align: left; word-break: break-word; font-family: Helvetica Neue, Helvetica, Arial, sans-serif; mso-line-height-alt: 29px; margin: 0;"><span style="font-size: 24px;">Här kan du ta bort din annons:</span></p>
-        <p style="font-size: 24px; line-height: 1.2; text-align: left; word-break: break-word; font-family: Helvetica Neue, Helvetica, Arial, sans-serif; mso-line-height-alt: 29px; margin: 0;"><span style="font-size: 24px;"><a href="https://begtool-backend.herokuapp.com/files/del/${fileID}/${annonsID}" rel="noopener" style="text-decoration: underline; color: #0068A5;" target="_blank" title="Begtool.se">Ta bort annons</a></span></p>
+        <p style="font-size: 24px; line-height: 1.2; text-align: left; word-break: break-word; font-family: Helvetica Neue, Helvetica, Arial, sans-serif; mso-line-height-alt: 29px; margin: 0;"><span style="font-size: 24px;"><a href="https://begtool-backend.herokuapp.com/files/del/${id}" rel="noopener" style="text-decoration: underline; color: #0068A5;" target="_blank" title="Begtool.se">Ta bort annons</a></span></p>
         <p style="font-size: 14px; line-height: 1.2; text-align: left; word-break: break-word; font-family: Helvetica Neue, Helvetica, Arial, sans-serif; mso-line-height-alt: 17px; margin: 0;"> </p>
         </div>
         </div>

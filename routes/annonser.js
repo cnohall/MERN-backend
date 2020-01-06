@@ -126,11 +126,11 @@ router.post('/add', upload.single('annonsImage'), (req, res) => {
         price,
     });
     newAnnons.save()
-        .then(() => {
-          const response = {
-            success: true,
-            annonsID: annonsID
-          }
+        .then((req, response) => {
+          // const response = {
+          //   success: true,
+          //   annonsID: annonsID
+          // }
           res.json(response)
           
         }
